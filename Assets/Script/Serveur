@@ -1,1 +1,93 @@
+using UnityEngine;
+using System.Collections;
+
+public class NetworkManager : MonoBehaviour {
+
+	//Create a server
+	//A compléter!!!!!!!!!!!!
+	private const string typeName = "";
+	private const string gameName = "";
+	private int connect;
+
+	private void StartServer()
+	{
+		Network.InitializeServer(4, 25000, !Network.HavePublicAddress());
+		MasterServer.RegisterHost(typeName, gameName);
+		connect = 1;
+	}
+
+
+	void OnServerInitialized()
+	{
+		Debug.Log("Server Initializied");
+	}
+
+
+    void OnGUI()
+    {
+        if (!Network.isClient && !Network.isServer)
+        {
+            if (GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 30, 100, 20), "Créer"))
+            {
+                //StartServer();
+                Network.InitializeServer(4, 25000, !Network.HavePublicAddress());
+                MasterServer.RegisterHost(typeName, gameName);
+                //A compléter!!!!!!!!!
+				Application.LoadLevel("");
+
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 2, 100, 20), "Rejoindre"))
+                RefreshHostList();
+
+            if (hostList != null)
+            {
+                for (int i = 0; i < hostList.Length; i++)
+                {
+                    if (GUI.Button(new Rect(400, 100 + (110 * i), 300, 100), hostList[i].gameName))
+                        JoinServer(hostList[i]);
+                }
+            }
+        }
+        if (connect == 1)
+        {
+			//A compléter!!!!!!!!!
+			Debug.Log("Connected");
+			Application.LoadLevel("");
+        }
+        if (GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 + 40, 100, 30), "Retour"))
+        {
+			//A compléter!!!!!!!!!
+			Debug.Log("Back");
+			Application.LoadLevel("");
+        }
+    }
+	//JOin a server
+	private HostData[] hostList;
+
+
+	private void RefreshHostList()
+	{
+		MasterServer.RequestHostList(typeName);
+	}
+
+
+	void OnMasterServerEvent(MasterServerEvent msEvent)
+	{
+		if (msEvent == MasterServerEvent.HostListReceived)
+			hostList = MasterServer.PollHostList();
+	}
+
+
+	private void JoinServer(HostData hostData)
+	{
+		Network.Connect(hostData);
+	}
+
+
+	void OnConnectedToServer()
+	{
+		Debug.Log("Server Joined");
+	}
+
+}
 
