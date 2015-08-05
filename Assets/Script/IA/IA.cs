@@ -24,16 +24,18 @@ public class IA : MonoBehaviour
 	Vector3[] points;
 	int[] indices;
 
-	float speed = 0.1f;
-	List<Vector3> destination = new List<Vector3>(){new Vector3(3,0.73f,10)};
+	public float speed = 0.1f;
+	public List<Vector3> destination = new List<Vector3>(){new Vector3(3,0.73f,10)};
 	int i = 0;
 	GameObject target = null;
 	bool getTarget = false;
 	NavMeshAgent agent;
-	
+
+	public List<GameObject> SeePlayer = new List<GameObject>();
 	// Use this for initialization
 	void Start ()
 	{
+		SeePlayer = new List<GameObject>();
 		destination.Add (this.transform.position);
 		agent = this.gameObject.GetComponent<NavMeshAgent> ();
 		// Initialisation du cone
@@ -107,9 +109,7 @@ public class IA : MonoBehaviour
 	// Fonction qui modifie le mesh
 	private void UpdateSightMesh()
 	{    
-		foreach (GameObject b in GameObject.FindGameObjectsWithTag("Player")) {
-			b.GetComponent<MeshRenderer>().enabled = false;
-		}
+		SeePlayer = new List<GameObject>();
 		GameObject bestTarget = null;
 		float bestRange = 0;
 		// Lance les rayons pour placer les vertices le plus loin possible
@@ -122,7 +122,7 @@ public class IA : MonoBehaviour
 				if (hit.transform.CompareTag ("Player")){
 					if (hit.distance > bestRange)
 						bestTarget = hit.transform.gameObject;
-					hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = true;
+					SeePlayer.Add (hit.transform.gameObject);
 				}	
 			}
 			if (debug)

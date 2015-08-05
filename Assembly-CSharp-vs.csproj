@@ -46,8 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\Demiurge\Control.cs" />
      <Compile Include="Assets\Script\Demiurge\Move_Camera.cs" />
      <Compile Include="Assets\Script\IA\IA.cs" />
+     <Compile Include="Assets\Script\IA\Static_IA.cs" />
+     <Compile Include="Assets\Script\Trap\DeathTrap.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

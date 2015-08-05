@@ -1,8 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\IA\IA.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Trap\DeathTrap.cs">
     <Files>
-      <File FileName="Assets\Script\IA\IA.cs" Line="28" Column="73" />
+      <File FileName="Assets\Script\Trap\DeathTrap.cs" Line="35" Column="17" />
+      <File FileName="Assets\Script\IA\IA.cs" Line="38" Column="38" />
+      <File FileName="Assets\Script\Demiurge\Control.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\IA\Static_IA.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
