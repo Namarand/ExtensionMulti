@@ -39,7 +39,7 @@ public class DeathTrap : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.CompareTag ("Player")) {
+		if (col.CompareTag ("Runner")) {
 			boom.Play ();
 			Destroy (col.gameObject);
 			t = true;

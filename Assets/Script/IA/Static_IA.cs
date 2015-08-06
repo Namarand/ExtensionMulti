@@ -24,7 +24,6 @@ public class Static_IA : MonoBehaviour {
 	Vector3[] points;
 	int[] indices;
 
-	public List<GameObject> SeePlayer = new List<GameObject>();
 	// Use this for initialization
 	void Start ()
 	{
@@ -89,7 +88,6 @@ public class Static_IA : MonoBehaviour {
 	// Fonction qui modifie le mesh
 	private void UpdateSightMesh()
 	{    
-		SeePlayer = new List<GameObject>();
 		// Lance les rayons pour placer les vertices le plus loin possible
 		for (int i = 0; i < precision; i++) {
 			Vector3 dir = m_Transform.TransformDirection (directions [i]); // repere objet
@@ -97,8 +95,8 @@ public class Static_IA : MonoBehaviour {
 			float dist = distance;
 			if (Physics.Raycast (m_Transform.position, dir, out hit, distance, mask)) { // Si on touche, on rétrécit le rayon
 				dist = hit.distance;
-				if (hit.transform.CompareTag ("Player")){
-					SeePlayer.Add (hit.transform.gameObject);
+				if (hit.transform.CompareTag ("Runner")){
+					hit.transform.gameObject.GetComponent<SeePlayer>().isSee = true;
 				}	
 			}
 			if (debug)
@@ -114,4 +112,10 @@ public class Static_IA : MonoBehaviour {
 		sightMesh.RecalculateNormals (); // normales doivent être calculé pour tout changement
 		// du tableau vertices, même si on travaille sur un plan
 	}
+
+	void OnColliderEnter(Collider other){
+		if (other.CompareTag("Runner")){
+			Destroy (other.gameObject);
+		}
+		}
 }
